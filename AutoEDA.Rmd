@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ###  title: "Automated Exploratory Data Analysis"
 
 ```{r}
+library(rmarkdown)
 library(magrittr) #uses the pipe operator, %>% 
 library(dplyr) #glimpse function
 
