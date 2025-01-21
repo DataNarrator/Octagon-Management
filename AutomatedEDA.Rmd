@@ -169,7 +169,8 @@ makeDataReport(purchase_order, output = "html", replace = TRUE)
 library(DataExplorer)
 create_report(purchase_order, 
               report_title = "Custom EDA Report",
-              output_file = "procurementcontract.html")
+              output_file = "
+              ")
 ```
 
 #The SmartEDA library also allows us to generate a complete HTML report using the ExpReport function. Let us install and import the package as well as run the ExpReport function to perform the EDA, as shown below.
