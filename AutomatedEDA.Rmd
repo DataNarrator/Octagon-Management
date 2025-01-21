@@ -87,13 +87,26 @@ purchase_order$Normalized.UNSPSC <- as.character(purchase_order$Normalized.UNSPS
 # Creating a function - stored in the Environment window
 # To change character to numeric, use the following:
 #dataset$columnname <- as.numeric(dataset$columnname)
+
 ```{r}
-convert_to_numeric <- function(column) {
-  as.numeric(gsub(",", "", column))
+# Function to clean and convert character columns to numeric
+convert_to_numeric <- function(data, columns) {
+  for (col in columns) {
+    data[[col]] <- gsub("\\$", "", data[[col]])   # Remove dollar signs
+    data[[col]] <- gsub(",", "", data[[col]])    # Remove commas
+    data[[col]] <- gsub("\\s+", "", data[[col]]) # Remove spaces
+    data[[col]] <- as.numeric(data[[col]])       # Convert to numeric
+  }
+  return(data)
 }
-# Convert relevant columns to numeric
-purchase_order <- purchase_order %>%
-  mutate(across(c(Unit.Price, Total.Price), convert_to_numeric))
+
+# Apply the function
+columns_to_convert <- c("Unit.Price", "Total.Price")
+purchase_order <- convert_to_numeric(purchase.order.data.2012.2015, columns_to_convert)
+
+# Output the cleaned data
+print(purchase_order)
+str(purchase_order)
 ```
 
 # To change numeric to integer, use the following:
@@ -136,6 +149,10 @@ purchase_order[purchase_order == "-"] <- NA #ex. the dash,-, used for missing
 ```{r}
 list_na <- colnames(purchase_order)[apply(purchase_order, 2, anyNA) ]
 list_na
+```
+
+```{r}
+summary(purchase_order$Unit.Price)
 ```
 
 # Look into dropping variables instead of removing obs until more is known about the data set
