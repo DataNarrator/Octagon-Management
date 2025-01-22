@@ -29,6 +29,7 @@ options(scipen=999,digits=3) #scientific notation
 # USe either 'Import Dataset' button (top right), Use 'From Text (base)' or the script to import a .csv file. 
 
 ```{r}
+setwd("C:/Users/yphillips/OneDrive - morehouse school of medicine/Data/")
 purchase_order <- read.csv("purchase-order-data-2012-2015.csv")
 ```
 
@@ -102,7 +103,7 @@ convert_to_numeric <- function(data, columns) {
 
 # Apply the function
 columns_to_convert <- c("Unit.Price", "Total.Price")
-purchase_order <- convert_to_numeric(purchase.order.data.2012.2015, columns_to_convert)
+purchase_order <- convert_to_numeric(purchase_order, columns_to_convert)
 
 # Output the cleaned data
 print(purchase_order)
@@ -140,12 +141,13 @@ str(purchase_order)
 
 #First thing to be noticed is that there is 100% complete rate. From observation of purchase_order dataset this can not be possible. 
 
-# If you have missing variables not coded NA. Change the character (i.e ?) to "NA" missing values in an entire dataset (dataframe)
+# If you have missing variables not coded NA. Change the character (i.e ?, 999, .) to "NA" missing values in an entire dataset (dataframe).
+Will skip this step as it is not applicable in this code
 ```{r}
-purchase_order[purchase_order == "-"] <- NA #ex. the dash,-, used for missing
+#purchase_order[purchase_order == "-"] <- NA #ex. the dash,-, used for missing
 ```
 
-# Determine which columns return column names containing missing observations. Only change the dataframe name in the script below.
+# Determine which columns return column names containing missing observations. Only change the dataframe name (i.e. purchase_order) in the script below.
 ```{r}
 list_na <- colnames(purchase_order)[apply(purchase_order, 2, anyNA) ]
 list_na
@@ -155,8 +157,8 @@ list_na
 summary(purchase_order$Unit.Price)
 ```
 
-# Look into dropping variables instead of removing obs until more is known about the data set
-# which variable(s) to drop; missing variables with >50% of obs
+# Explore but be cautious into dropping variables (i.e.removing data) until more is known about the data set
+# Explore which variable(s) to drop;  variables with >50% of missing obs
 
 # Automatic EDA
 
@@ -186,8 +188,7 @@ makeDataReport(purchase_order, output = "html", replace = TRUE)
 library(DataExplorer)
 create_report(purchase_order, 
               report_title = "Custom EDA Report",
-              output_file = "
-              ")
+              output_file = "DataExplorer.html")
 ```
 
 #The SmartEDA library also allows us to generate a complete HTML report using the ExpReport function. Let us install and import the package as well as run the ExpReport function to perform the EDA, as shown below.
